@@ -8,9 +8,10 @@
 const auth = require('../../src/models/presave.model');
 const ps = require('../../src/models/presave.model');
 const bcrypt = require('bcryptjs');
-exports.ps = async function(next) {
+exports.preSaveFunc = async function(next, obj) {
   // console.log(this);
-  this.password= await bcrypt.hash(this.password, 12);
-  this.passwordConfirm= undefined;
-  return await true;
+  if (!obj.isModified('password')) return next();
+  obj.password= await bcrypt.hash(obj.password, 12);
+  obj.passwordConfirm= undefined;
+  next();
 };

@@ -11,7 +11,10 @@ const accounts = mongoose.Schema({
   password: String,
 });
 // const cm =
-accounts.pre('save', ps.ps);
+accounts.pre('save', async function(next) {
+  await ps.preSaveFunc(next, this);
+});
+
 accounts.methods.correctPassword = async function(
     typedPassword,
     originalPassword,

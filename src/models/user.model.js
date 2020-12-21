@@ -13,7 +13,9 @@ const blogposts = mongoose.Schema({
   cardContent: String,
   cardCategory: String,
 });
-blogposts.pre('save', ps.ps);
+blogposts.pre('save', async function(next) {
+  await ps.preSaveFunc(next, this);
+});
 blogposts.methods.correctPassword = async function(
     typedPassword,
     originalPassword,
