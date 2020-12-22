@@ -30,13 +30,7 @@ exports.addposts = async (req, res, next) => {
   const pp = req.body.password;
   const pid = null;
   const sess = req.session;
-  const obj = {
-    content: req.body.content,
-    cardName: req.body.cardName,
-    cardContent: req.body.cardContent,
-    cardStatus: req.body.cardStatus,
-    cardCategory: req.body.cardCategory,
-  };
+  const obj = req.body;
   try {
     const mode ='add';
     const [username, password] =await userfn.sessionx(sess, uu, pp);

@@ -14,7 +14,7 @@ const blogposts = mongoose.Schema({
   cardCategory: String,
 });
 blogposts.pre('save', async function(next) {
-  await ps.preSaveFunc(next, this);
+  return await ps.preSaveFunc(next, this);
 });
 blogposts.methods.correctPassword = async function(
     typedPassword,
@@ -22,4 +22,5 @@ blogposts.methods.correctPassword = async function(
 ) {
   return await bcrypt.compare(typedPassword, originalPassword);
 };
-module.exports = mongoose.model('User', blogposts);
+const User = mongoose.model('User', blogposts);
+module.exports = User;
